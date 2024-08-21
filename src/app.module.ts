@@ -1,14 +1,28 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { OrdersModule } from './orders/orders.module';
-import { ProductsModule } from './products/products.module';
-import { AuthModule } from './auth/auth.module';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { CorsMiddleware } from './common/middleware/middleware.module';
+import { User } from './users/entities/user.entity';
+import { Product } from './products/entities/product.entity';
+import { Order } from './orders/entities/order.entity';
 
 @Module({
-  imports: [UsersModule, ProductsModule, OrdersModule, AuthModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'bnrttax2ydkiiici5fxr-mysql.services.clever-cloud.com',
+      port: 3306,
+      username: 'upbkrxpznc2az5ux',
+      password: '5OzHf7mYKLTIjkey00u6',
+      database: 'bnrttax2ydkiiici5fxr',
+      entities: [User, Product, Order],
+      synchronize: true,
+    })
+  ],
 })
-export class AppModule {}
+export class AppModule implements NestModule{
+  configure(consumer: MiddlewareConsumer){
+    consumer
+    .apply(CorsMiddleware)
+    .forRoutes('*');
+  }
+}
