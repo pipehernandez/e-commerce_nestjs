@@ -11,9 +11,9 @@ export class Order {
     totalPrice: number;
 
     @ManyToOne(() => User, (user) => user.orders)
-    userId: User;
+    user: User;
 
-    @ManyToMany(() => Product, product => product.orders)
+    @ManyToMany(() => Product)
     @JoinTable()
-    products: Product[];
+    products: Product[]
 }

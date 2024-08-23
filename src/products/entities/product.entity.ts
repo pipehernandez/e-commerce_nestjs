@@ -1,4 +1,4 @@
-import { Order } from "src/orders/entities/order.entity";
+
 import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('products')
@@ -14,8 +14,4 @@ export class Product {
 
     @Column()
     description: string;
-
-    @ManyToMany(() => Order, order => order.products)
-    @JoinTable()
-    orders: Order[];
 }

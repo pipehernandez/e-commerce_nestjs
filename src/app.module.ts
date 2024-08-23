@@ -1,9 +1,10 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CorsMiddleware } from './common/middleware/middleware.module';
 import { User } from './users/entities/user.entity';
 import { Product } from './products/entities/product.entity';
 import { Order } from './orders/entities/order.entity';
+import { UsersController } from './users/users.controller';
+import { UsersService } from './users/users.service';
 
 @Module({
   imports: [
@@ -18,11 +19,8 @@ import { Order } from './orders/entities/order.entity';
       synchronize: true,
     })
   ],
+  controllers: [UsersController],
+  providers: [UsersService]
+  
 })
-export class AppModule implements NestModule{
-  configure(consumer: MiddlewareConsumer){
-    consumer
-    .apply(CorsMiddleware)
-    .forRoutes('*');
-  }
-}
+export class AppModule {}

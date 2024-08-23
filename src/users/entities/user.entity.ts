@@ -20,6 +20,6 @@ export class User {
     @IsIn(['user', 'admin'], {message: 'El rol debe ser "user" o "admin".'})
     role: string;
 
-    @OneToMany(() => Order, order => order.userId)
+    @OneToMany(() => Order, order => order.user)
     orders: Order[];
 }
