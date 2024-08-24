@@ -1,16 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { RegisterUser } from './services/register/registerUser';
+import { RegisterAuthDto } from './dto/register-auth.dto';
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly jwtService: JwtService){}
-
-    async login(user: any){
-        const payload = { username: user.username, sub: user.userId};
-        return {
-            access_token: this.jwtService.sign(payload),
-        };
-    }
-
-    
+    constructor(private readonly register: RegisterUser){}
+    async registerUser({email, password, role}: RegisterAuthDto){
+        return await this.register.registerService({email, password, role})
+    }    
 }

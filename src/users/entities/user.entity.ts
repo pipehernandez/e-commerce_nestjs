@@ -9,15 +9,12 @@ export class User {
     id: number;
 
     @Column()
-    @IsEmail({},{message: 'It has to be a valid email adress'})
     email: string;
 
     @Column()
-    @IsNotEmpty({message: 'The password cant be in blank'})
     password: string;
 
-    @Column({default: 'user'})
-    @IsIn(['user', 'admin'], {message: 'El rol debe ser "user" o "admin".'})
+    @Column()
     role: string;
 
     @OneToMany(() => Order, order => order.user)

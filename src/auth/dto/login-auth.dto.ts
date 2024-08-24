@@ -1,10 +1,4 @@
-import { IsEmail, MaxLength, MinLength } from "class-validator";
+import { IsString } from "class-validator";
+import { RegisterAuthDto } from "./register-auth.dto";
 
-export class LoginUserDto{
-    @IsEmail()
-    email: string;
-
-    @MinLength(8)
-    @MaxLength(16 )
-    password: string;
-}
+export class LoginAuthDto extends RegisterAuthDto{}

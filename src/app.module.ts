@@ -3,8 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
 import { Product } from './products/entities/product.entity';
 import { Order } from './orders/entities/order.entity';
-import { UsersController } from './users/users.controller';
-import { UsersService } from './users/users.service';
+import { UsersModule } from './users/users.module';
+import { ProductsModule } from './products/products.module';
+import { OrdersModule } from './orders/orders.module';
+import { AuthModule } from './auth/auth.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -17,10 +21,11 @@ import { UsersService } from './users/users.service';
       database: 'bnrttax2ydkiiici5fxr',
       entities: [User, Product, Order],
       synchronize: true,
-    })
+    }),
+    UsersModule, ProductsModule, OrdersModule, AuthModule
   ],
-  controllers: [UsersController],
-  providers: [UsersService]
+  controllers: [AppController],
+  providers: [AppService]
   
 })
 export class AppModule {}
